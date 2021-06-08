@@ -2,7 +2,8 @@
 <resources>
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
-    <dimen name="item_note_name_size">20sp</dimen>
+    <dimen name="large_text">20sp</dimen>
     <dimen name="app_margin">16dp</dimen>
-    <dimen name="item_note_text_size">16sp</dimen>
+    <dimen name="normal_text">16sp</dimen>
+    <dimen name="btn_width">250dp</dimen>
 </resources>
