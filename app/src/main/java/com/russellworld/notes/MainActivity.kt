@@ -23,13 +23,10 @@ class MainActivity : AppCompatActivity() {
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
         title = getString(R.string.title)
-
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-
     }
 }

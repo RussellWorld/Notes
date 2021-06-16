@@ -35,4 +35,16 @@ class StartFragment : Fragment() {
             mViewModel.initDatabase(TYPE_ROOM)
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        initialization()
+    }
+
+    private fun initialization() {
+        mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
+        mBinding.btnRoom.setOnClickListener {
+            mViewModel.initDatabase(TYPE_ROOM)
+        }
+    }
 }
