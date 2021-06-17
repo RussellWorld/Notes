@@ -14,7 +14,7 @@ class StartFragment : Fragment() {
 
     private var _binding: FragmentStartBinding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mViewModel: StartFragmentViewModel
+     private lateinit var mViewModel: StartFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +36,4 @@ class StartFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
-        mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
-        mBinding.btnRoom.setOnClickListener {
-            mViewModel.initDatabase(TYPE_ROOM)
-        }
-    }
 }
