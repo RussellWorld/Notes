@@ -5,7 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import com.russellworld.notes.database.room.AppRoomDatabase
 import com.russellworld.notes.database.room.AppRoomRepository
 import com.russellworld.notes.utilits.REPOSITORY
+import com.russellworld.notes.utilits.TYPE_FIREBASE
 import com.russellworld.notes.utilits.TYPE_ROOM
+import com.russellworld.notes.utilits.showToast
 
 class StartFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val mContext = application
@@ -17,7 +19,9 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
                 REPOSITORY = AppRoomRepository(dao)
                 onSuccess()
             }
+            TYPE_FIREBASE -> {
+                showToast(TYPE_FIREBASE)
+            }
         }
-
     }
 }
