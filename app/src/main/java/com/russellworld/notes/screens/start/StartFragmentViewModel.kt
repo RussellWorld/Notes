@@ -2,6 +2,7 @@ package com.russellworld.notes.screens.start
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.russellworld.notes.database.firebase.AppFirebaseRepository
 import com.russellworld.notes.database.room.AppRoomDatabase
 import com.russellworld.notes.database.room.AppRoomRepository
 import com.russellworld.notes.utilits.REPOSITORY
@@ -20,7 +21,8 @@ class StartFragmentViewModel(application: Application) : AndroidViewModel(applic
                 onSuccess()
             }
             TYPE_FIREBASE -> {
-                showToast(TYPE_FIREBASE)
+                REPOSITORY = AppFirebaseRepository()
+                REPOSITORY.connectToDatabase({ onSuccess() }, { showToast(it) })
             }
         }
     }
