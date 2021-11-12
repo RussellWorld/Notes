@@ -2,19 +2,30 @@ package com.russellworld.notes.database.firebase
 
 import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.russellworld.notes.database.DataBaseRepository
 import com.russellworld.notes.model.AppNote
-import com.russellworld.notes.utilits.EMAIL
-import com.russellworld.notes.utilits.PASSWORD
+import com.russellworld.notes.utilits.*
 
 class AppFirebaseRepository : DataBaseRepository {
 
     private val mAuth = FirebaseAuth.getInstance()
+    private val mDatabaseReference = FirebaseDatabase.getInstance().reference
+        .child(mAuth.currentUser?.uid.toString())
 
     override val allNotes: LiveData<List<AppNote>> = AllNotesLiveData()
 
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+        val idNote = mDatabaseReference.push().key.toString()
+        val mapNote = hashMapOf<String, Any>()
+        mapNote[ID_FIREBASE] = idNote
+        mapNote[NAME] = note.name
+        mapNote[TEXT] = note.text
+
+        mDatabaseReference.child(idNote)
+            .updateChildren(mapNote)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { showToast(it.message.toString()) }
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
