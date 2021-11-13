@@ -49,7 +49,6 @@ class NoteFragment : Fragment() {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_noteFragment_to_mainFragment)
                 }
-
             }
         }
         return super.onOptionsItemSelected(item)
