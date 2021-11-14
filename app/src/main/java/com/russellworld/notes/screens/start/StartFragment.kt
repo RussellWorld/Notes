@@ -27,38 +27,51 @@ class StartFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
-        mBinding.btnRoom.setOnClickListener {
-            mViewModel.initDatabase(TYPE_ROOM) {
+
+        if (AppPreference.getInitUser()) {
+            mViewModel.initDatabase(AppPreference.getTypeDB()) {
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
+        } else {
+            initialization()
         }
-        mBinding.btnFirebase.setOnClickListener {
-            mBinding.inputEmail.visibility = View.VISIBLE
-            mBinding.inputPassword.visibility = View.VISIBLE
-            mBinding.btnLogin.visibility = View.VISIBLE
-            mBinding.btnLogin.setOnClickListener {
-                val inputEmail = mBinding.inputEmail.text.toString()
-                val inputPassword = mBinding.inputPassword.text.toString()
-                if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
-                    EMAIL = inputEmail
-                    PASSWORD = inputPassword
-                    mViewModel.initDatabase(TYPE_FIREBASE) {
-                    APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
-                    }
+    }
 
-                } else showToast(getString(R.string.toast_wrong_enter))
+
+    private fun initialization() {
+
+        mBinding.btnRoom.setOnClickListener {
+            mViewModel.initDatabase(TYPE_ROOM) {
+                AppPreference.setInitUser(true)
+                AppPreference.setTypeDB(TYPE_ROOM)
+            }
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+            }
+            mBinding.btnFirebase.setOnClickListener {
+                mBinding.inputEmail.visibility = View.VISIBLE
+                mBinding.inputPassword.visibility = View.VISIBLE
+                mBinding.btnLogin.visibility = View.VISIBLE
+                mBinding.btnLogin.setOnClickListener {
+                    val inputEmail = mBinding.inputEmail.text.toString()
+                    val inputPassword = mBinding.inputPassword.text.toString()
+                    if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
+                        EMAIL = inputEmail
+                        PASSWORD = inputPassword
+                        mViewModel.initDatabase(TYPE_FIREBASE) {
+                            AppPreference.setInitUser(true)
+                            AppPreference.setTypeDB(TYPE_FIREBASE)
+                            APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+                        }
+
+                    } else showToast(getString(R.string.toast_wrong_enter))
+                }
             }
         }
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
 
-}
+    }
