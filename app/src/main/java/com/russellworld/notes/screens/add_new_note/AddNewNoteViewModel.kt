@@ -16,5 +16,4 @@ class AddNewNoteViewModel(application: Application) : AndroidViewModel(applicati
             }
         }
     }
-
 }

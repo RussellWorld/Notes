@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.russellworld.notes.MainActivity
 import com.russellworld.notes.database.DataBaseRepository
+
 lateinit var AUTH: FirebaseAuth
 lateinit var CURRENT_ID: String
 lateinit var REF_DATABASE: DatabaseReference
